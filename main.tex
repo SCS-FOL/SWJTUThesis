@@ -1,0 +1,63 @@
+%!TEX program = xelatex
+\documentclass[degree=Master]{swjtuthesis}
+\usepackage{swjtuthesis}
+
+% 论文信息配置
+%% 密级：如果不涉密，留空或注释掉；如果涉密，填写级别和年限
+%% \secretlevel{秘密}{10年} 
+
+\ci{TP316}
+\udc{005.43} % 国际图书分类号
+\school{计算机与人工智能学院}{School of Computing and}{Artificial Intelligence}
+\major{计算机科学与技术}{Computer Science}{and Technology}
+\title{学\hspace{0.5em}位\hspace{0.5em}论\hspace{0.5em}文\hspace{0.5em}题\hspace{0.5em}目}{Thesis Template for Master Degree of\\Engineering in\\Southwest Jiaotong University}
+\author{李扬华}{Li Yanghua}
+\studentid{1896112026}
+\advisor{陈建国~教授}{Prof. Chen Jianguo}
+\date{2026~~年~~2~~月~~2~~日}{Feb. 02, 2026}
+
+\begin{document}
+
+% 封面
+\makecover
+
+% 独创性声明和授权页
+\makedeclaration
+
+% 摘要、目录、符号表等
+\frontmatter
+\pagenumbering{Roman} % 页码为大写罗马数字 I, II...
+
+\include{chapters/abstract}
+
+\contentmark
+\tableofcontents
+\listoffigures
+\listoftables
+
+\include{chapters/symbol}
+\include{chapters/abbreviation}
+
+% 正文
+\mainmatter
+\mainmark
+
+\include{chapters/intro}
+\include{chapters/formatspec}
+\include{chapters/print}
+\include{chapters/vis}
+\include{chapters/conclusion}
+
+% 致谢
+\include{chapters/acknowlegement}
+
+% 参考文献
+%% 列出所有参考文献
+\nocite{*}
+\bibliographystyle{swjtuthesis-numerical}
+\bibliography{ref/swjtu-ref}
+
+\include{chapters/appendix}
+\include{chapters/achivement}
+
+\end{document}

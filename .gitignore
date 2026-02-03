@@ -1,0 +1,68 @@
+# ===============================
+# LaTeX build artifacts
+# ===============================
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# arara
+.arara/
+
+# font
+*.ttf
+*.otf
+
+# ===============================
+# PDF / intermediate
+# ===============================
+main.pdf
+
+# ===============================
+# Missfont / font cache
+# ===============================
+missfont.log
+
+# ===============================
+# OS / Editor junk
+# ===============================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ===============================
+# Build / temp directories (if any)
+# ===============================
+build/
+tmp/
+
+# ===============================
+# Keep these (explicitly NOT ignored)
+# ===============================
+!chapters/
+!figures/
+!ref/
+!font/
+!swjtuthesis.cls
+!swjtuthesis.sty
+!main.tex
+!Makefile
+!README.md
