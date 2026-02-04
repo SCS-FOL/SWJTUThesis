@@ -20,9 +20,12 @@
 %% and version 1.3c or later is part of all distributions of LaTeX
 %% version 2008 or later.
 %% -------------------------------------------------------------------
-%% Modified by Shitao Tang <tangshitao17 AT gmail.com> for SWJTU thesis template
+%% Modified by Shitao Tang <tangshitao17 AT gmail.com>
+%% for SWJTU thesis template
 %% Date: 2026/02/03
 %% -------------------------------------------------------------------
+%%
+
 INTEGERS {
   citation.et.al.min
   citation.et.al.use.first

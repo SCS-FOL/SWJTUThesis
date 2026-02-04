@@ -42,8 +42,8 @@
 \SetupKeyvalOptions{family=swjtu, prefix=swjtu@, setkeys=\kvsetkeys}
 
 %% 定义输出模式：print或electronic
-\DeclareStringOption[electronic]{output} % 默认电子分发版
-\DeclareStringOption[Master]{degree} % 默认硕士
+\DeclareStringOption[electronic]{output} %% 默认电子分发版
+\DeclareStringOption[Master]{degree} %% 默认硕士
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessKeyvalOptions*
 
@@ -494,8 +494,8 @@
 \renewcommand{\bibfont}{\zihao{5}\linespread{1.4}\selectfont}
 \setlength{\bibsep}{4bp}
 \renewcommand\bibsection{%
-  \chapter*{参考文献}% 生成不带编号的章标题
-  \addcontentsline{toc}{chapter}{参考文献}% 添加到目录
+  \chapter*{参考文献}%% 生成不带编号的章标题
+  \addcontentsline{toc}{chapter}{参考文献}%% 添加到目录
 }
 
 \setlength{\labelwidth}{1.6em} %% 编号盒子宽度
