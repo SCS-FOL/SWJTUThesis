@@ -46,11 +46,11 @@ xelatex main
 
 ## 在线编译注意事项
 
-* **Overleaf**：由于免费版 Overleaf 的编译超时限制，且本项目包含高清矢量图及复杂的字体配置，**直接在 Overleaf 上编译极大概率会报错（Timeout）**。
+* **Overleaf**：由于免费版 [Overleaf](https://www.overleaf.com/project) 的编译超时限制，且本项目包含高清矢量图及复杂的字体配置，**直接在 Overleaf 上编译极大概率会报错（Timeout）**。
 
 * **推荐方案**：
 1. **本地编译**：在本地安装 TeX Live + VS Code (LaTeX Workshop) 获得最佳体验。
-2. **TeXPage**：如果必须使用在线编辑器，推荐上传至 [TeXPage](https://www.texpage.com/)，经测试，可成功在 [TexPage] 上编译。
+2. **TeXPage**：如果必须使用在线编辑器，推荐上传至 [TeXPage](https://www.texpage.com/)，经测试，可成功在 [TexPage](https://www.texpage.com/) 上编译。
 
 
 ## 软件许可证 (License)
