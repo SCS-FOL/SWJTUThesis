@@ -243,7 +243,7 @@
 
 8. 初版的专著不著录版本，电子文献数字对象唯一识别符仅在获取或访问路径中不含数字对象唯一识别符时著录。
 
-常见文献类型及标识代码见表~\ref{tab2-4}，电子资源载体及标识代码见表~\ref{tab2-5}。\textbf{参考文献实例见第\textcolor{red}{24、25}页}。
+常见文献类型及标识代码见表~\ref{tab2-4}，电子资源载体及标识代码见表~\ref{tab2-5}。\textbf{参考文献实例见第\textcolor{red}{~\pageref{chap:ref}~}页}。
 
 
 \begin{table}[!ht]
@@ -327,7 +327,7 @@
 
 页眉采用\textbf{五号字}居中书写，中文用宋体，英文和数字用Times New Roman体；页眉线为单横线，线宽0.75磅。
 
-中文摘要及之后的前置部分，页眉为各部分内容的标题，例如：“摘要”\linebreak“ABSTRACT”“目录”“图目录”“表目录”“主要符号表”“缩略词表”。从第1章第1页开始，至论文最后一页，\textcolor{red}{\textbf{页眉统一用“西南交通大学博/硕士学位论文”}}。
+中文摘要及之后的前置部分，页眉为各部分内容的标题，例如：“摘要”“ABSTRACT”“目录”“图目录”“表目录”“主要符号表”“缩略词表”。从第1章第1页开始，至论文最后一页，\textcolor{red}{\textbf{页眉统一用“西南交通大学博/硕士学位论文”}}。
 
 \subsection{页码}
 
@@ -343,7 +343,7 @@
 
 \section{算法}
 
-本模板提供了算法样式。\textcolor{red}{学校模板并未提供算法或代码规范，此处算法样式仅供参考。}论文正文中不建议出现大段代码，如果确实需要插入代码，\texttt{swjtuthesis.\linebreak sty} 文件中预定义了C和Rust的代码样式，可在此基础上扩展\texttt{listings}环境。
+本模板提供了算法样式。\textcolor{red}{学校模板并未提供算法或代码规范，此处算法样式仅供参考。}论文正文中不建议出现大段代码，如果确实需要插入代码，\texttt{swjtuthesis.sty} 文件中预定义了C和Rust的代码样式，可在此基础上扩展\texttt{listings}环境。
 
 \begin{algorithm}
   \SetAlgoLined
@@ -369,6 +369,121 @@
   \caption{Hanoi Tower非递归算法}
   \label{algo:hanoi}
 \end{algorithm}
+
+\section{定理和证明}
+
+这一节定义数学定理、证明等样式。同样地，\textcolor{red}{学校模板并未提供数学定理、证明等规范，此处样式仅供参考。}
+
+\begin{definition}
+  \label{def:bipartite}
+  A graph $G = (V, E)$ is said to be \textbf{bipartite} if its vertex set $V$ can be divided into two disjoint and independent sets, $U$ and $W$, such that every edge in $E$ connects a vertex in $U$ to one in $W$. Consequently, vertex sets $U$ and $W$ are independent sets.
+\end{definition}
+
+\begin{assumption}
+  \label{ass:convexity}
+  Throughout this analysis, we assume that the objective function $f(x)$ is strictly convex and twice differentiable over the domain $\Omega \subseteq \mathbb{R}^n$.
+\end{assumption}
+
+\begin{axiom}
+  \label{ax:choice}
+  \textbf{(Axiom of Choice)} For any set $X$ of nonempty sets, there exists a choice function $f$ that is defined on $X$ and maps each set $S \in X$ to an element $x \in S$.
+\end{axiom}
+
+\begin{lemma}
+  \label{lem:pigeonhole}
+  Let $M = (Q, \Sigma, \delta, q_0, F)$ be a deterministic finite automaton (DFA) with $n$ states. If $M$ accepts a string $w$ such that $|w| \ge n$, then the path of computation for $w$ must repeat at least one state.
+\end{lemma}
+
+\begin{proof}
+  Let $w = w_1 w_2 \dots w_m$ where $m \ge n$. The sequence of states entered during the processing of $w$ is $r_0, r_1, \dots, r_m$, which has length $m + 1$. Since $m \ge n$, the sequence contains at least $n + 1$ states. However, $M$ only has $n$ distinct states. By the Pigeonhole Principle, at least one state must appear twice in the sequence.
+\end{proof}
+
+\begin{theorem}[Pumping Lemma for Regular Languages]
+  \label{thm:pumping}
+  If a language $L$ is regular, then there exists a number $p \ge 1$ (the pumping length) such that any string $s$ in $L$ with $|s| \ge p$ may be divided into three pieces, $s = xyz$, satisfying the following conditions:
+  \begin{enumerate}
+    \item for each $i \ge 0$, $xy^i z \in L$,
+    \item $|y| > 0$, and
+    \item $|xy| \le p$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Let $M = (Q, \Sigma, \delta, q_0, F)$ be a DFA that recognizes $L$. Let $p$ be the number of states in $M$. Consider any string $s \in L$ with $|s| \ge p$.
+  
+  Let $r_0, r_1, \dots, r_n$ be the sequence of states $M$ enters while processing $s$, where $n = |s|$. Since $n \ge p$, the sequence of states has length $n+1 \ge p+1$. Among the first $p+1$ elements of the sequence, two must be the same state (by Lemma \ref{lem:pigeonhole}). Let the first occurrence be $r_j$ and the second be $r_k$, with $0 \le j < k \le p$.
+  
+  We divide $s$ into $xyz$:
+  \[ x = s_1 \dots s_j, \quad y = s_{j+1} \dots s_k, \quad z = s_{k+1} \dots s_n \]
+  Since the machine is in the same state $r_j$ (which is $r_k$) after reading $x$ and after reading $xy$, it will be in the same state after reading $xy^i$. Thus, the string $xy^iz$ is accepted for all $i \ge 0$.
+\end{proof}
+
+\begin{corollary}
+  The language $L = \{ 0^n 1^n \mid n \ge 0 \}$ is not regular.
+\end{corollary}
+
+\begin{proposition}
+  \label{prop:bounded}
+  Every convergent sequence in $\mathbb{R}$ is bounded.
+\end{proposition}
+
+\begin{assertion}
+  It is asserted that the complexity class $\mathbf{P}$ is a subset of $\mathbf{NP}$, i.e., $\mathbf{P} \subseteq \mathbf{NP}$.
+\end{assertion}
+
+\begin{example}
+  Compute the limit of the sequence defined by $a_n = \frac{3n^2 + 2}{2n^2 - 1}$ as $n \to \infty$.
+\end{example}
+
+\begin{solution}
+  We divide both the numerator and the denominator by the highest power of $n$, which is $n^2$:
+  \begin{equation}
+    \lim_{n \to \infty} \frac{3n^2 + 2}{2n^2 - 1} = \lim_{n \to \infty} \frac{3 + \frac{2}{n^2}}{2 - \frac{1}{n^2}}
+  \end{equation}
+  As $n \to \infty$, terms $\frac{1}{n^2}$ approach 0. Thus, the limit is $\frac{3}{2}$.
+\end{solution}
+
+\begin{remark}
+  Note that the converse of Proposition \ref{prop:bounded} is not true; a bounded sequence is not necessarily convergent (e.g., sequence $(-1)^n$).
+\end{remark}
+
+\begin{definition}[定积分]
+  \label{def:integral}
+  设函数 $f(x)$ 在区间 $[a, b]$ 上有定义。若对于 $[a, b]$ 的任意分割 $T$ 和任意选取的点集 $\{\xi_i\}$，当分割的细度 $\lambda(T) \to 0$ 时，黎曼和的极限存在：
+  \begin{equation}
+    \label{eq:riemann_sum}
+    I = \lim_{\lambda \to 0} \sum_{i=1}^n f(\xi_i) \Delta x_i
+  \end{equation}
+  则称 $I$ 为 $f(x)$ 在 $[a, b]$ 上的\textbf{定积分}，记作 $\int_a^b f(x) \mathrm{d}x$。
+\end{definition}
+
+\begin{assumption}
+  \label{ass:continuous}
+  在本节后续讨论中，假设 $f(x)$ 和 $g(x)$ 在闭区间 $[a, b]$ 上均连续，且在开区间 $(a, b)$ 内可导。
+\end{assumption}
+
+\begin{theorem}[微积分基本定理]
+  \label{thm:newton_leibniz}
+  如果函数 $F(x)$ 是连续函数 $f(x)$ 在区间 $[a, b]$ 上的一个原函数，即 $F'(x) = f(x)$，那么：
+  \begin{equation}
+    \label{eq:newton_leibniz}
+    \int_a^b f(x) \mathrm{d}x = F(b) - F(a)
+  \end{equation}
+  该公式建立了定积分与原函数之间的联系。
+\end{theorem}
+
+\begin{proof}
+  构造变上限积分函数 $\Phi(x) = \int_a^x f(t) \mathrm{d}t$。根据积分中值定理，可证 $\Phi'(x) = f(x)$。
+  
+  由于 $F(x)$ 也是原函数，故 $\Phi(x) = F(x) + C$。
+  \begin{equation}
+    \text{当 } x=a \text{ 时：} \quad \Phi(a) = \int_a^a f(t)\mathrm{d}t = 0 \implies C = -F(a)
+  \end{equation}
+  \begin{equation}
+    \text{当 } x=b \text{ 时：} \quad \int_a^b f(t)\mathrm{d}t = \Phi(b) = F(b) - F(a)
+  \end{equation}
+  证毕。
+\end{proof}
 
 \section{本章小结}
 

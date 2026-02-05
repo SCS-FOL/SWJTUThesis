@@ -508,4 +508,87 @@
   \makebox[\labelwidth][l]{[#1]}%
 }
 
+% 数学定理、证明等
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+
+\newcommand\swjtu@assertion@name{断言}
+\newcommand\swjtu@assumption@name{假设}
+\newcommand\swjtu@axiom@name{公理}
+\newcommand\swjtu@corollary@name{推论}
+\newcommand\swjtu@definition@name{定义}
+\newcommand\swjtu@example@name{例}
+\newcommand\swjtu@lemma@name{引理}
+\newcommand\swjtu@proof@name{证明}
+\newcommand\swjtu@proposition@name{命题}
+\newcommand\swjtu@remark@name{注}
+\newcommand\swjtu@theorem@name{定理}
+\newcommand\swjtu@solution@name{解}
+
+\newtheoremstyle{swjtuplain}
+  {0pt}{0pt}
+  {\normalfont}
+  {2em} %% 缩进2字符
+  {\bfseries}
+  {}
+  {1em}
+  {}
+
+\theoremstyle{swjtuplain}
+
+%% 编号依赖：
+%% 定理、断言、公理、推论、引理、命题 -- 按章独立共享计数器
+\newtheorem{theorem}             {\swjtu@theorem@name} [chapter]
+\newtheorem{assertion} [theorem] {\swjtu@assertion@name}
+\newtheorem{axiom}     [theorem] {\swjtu@axiom@name}
+\newtheorem{corollary} [theorem] {\swjtu@corollary@name}
+\newtheorem{lemma}     [theorem] {\swjtu@lemma@name}
+\newtheorem{proposition}[theorem]{\swjtu@proposition@name}
+%% 假设、定义、例、注 -- 按章独立
+\newtheorem{assumption}  {\swjtu@assumption@name} [chapter]
+\newtheorem{definition}  {\swjtu@definition@name} [chapter]
+\newtheorem{example}     {\swjtu@example@name}    [chapter]
+\newtheorem*{remark}     {\swjtu@remark@name}
+
+%% 证明
+\renewenvironment{proof}[1][\swjtu@proof@name]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax%
+  \trivlist%
+  \item\relax\hskip2em\relax%
+  \textbf{#1}%
+  \hskip1em\ignorespaces%
+}{%
+  \popQED\endtrivlist\@endpefalse%
+}
+
+%% 解
+\newenvironment{solution}[1][\swjtu@solution@name]{\par
+  \normalfont \topsep6\p@\@plus6\p@\relax%
+  \trivlist%
+  \item\relax\hskip2em\relax%
+  \textbf{#1}%
+  \hskip1em\ignorespaces%
+}{\par}
+
+%% QED
+\renewcommand{\qedsymbol}{\ensuremath{\rule{1.3ex}{1.3ex}}}
+
+% 排版微调
+\ifXeTeX
+  \RequirePackage[protrusion=true, expansion=false, tracking=false]{microtype}
+\else\ifLuaTeX
+  \RequirePackage[protrusion=true, expansion=true, tracking=false]{microtype}
+\fi\fi
+
+\tolerance=1000           %% 提高断行容忍度，减少 Overfull \hbox
+\hbadness=1000 
+\emergencystretch=1.5em   %% 允许单词间距拉伸
+\hfuzz=0.3pt
+\vfuzz=0.3pt
+
+\xeCJKsetup{
+  CheckFullRight = true,  %% 检查全角标点在行尾
+}
+
 \endinput
