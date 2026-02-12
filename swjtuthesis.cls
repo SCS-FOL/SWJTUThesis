@@ -2,11 +2,11 @@
 % Copyright (C) 2026
 %
 % Original Author Limin HUANG.
-% 2015/01/30		v0.0, Begin of the projet, 		@Chengdu China
-% 2015/12/08		v1.0, Release of the projet, 	@Grenoble, France
-% 2020/06/01		v2.0, Revision by Hao WANG, 	@Chengdu, China
-% 2024/08/10		v3.0, Revision by Pungjay, 	    @Chengdu, China
-% 2026/02/03        v4.0, Revision by Shitao Tang,  @Chengdu, China
+% 2015/01/30    v0.0, Begin of the projet,      @Chengdu China
+% 2015/12/08    v1.0, Release of the projet,    @Grenoble, France
+% 2020/06/01    v2.0, Revision by Hao WANG,     @Chengdu, China
+% 2024/08/10    v3.0, Revision by Pungjay,      @Chengdu, China
+% 2026/02/03    v4.0, Revision by Shitao Tang,  @Chengdu, China
 %
 % This version introduces significant changes compared with the previous
 % release. Nevertheless, it remains partially based on earlier versions of
@@ -98,16 +98,96 @@
 %% 中文字体
 \RequirePackage{fontspec}
 
-\newcommand{\swjtu@fontpath}{font/}
+\newif\ifswjtu@mac
+\newif\ifswjtu@windows
+\newif\ifswjtu@unix
+\newif\ifswjtu@local
 
-\setCJKmainfont[
-  Path = \swjtu@fontpath,
-  ItalicFont = {KaiTi.ttf},
-  AutoFakeBold = 3.50
-]{SimSun.ttf}
+%% 判断不同的系统(如果没有卸载系统自带字体)
+%%% mac
+\IfFileExists{/System/Library/Fonts/Menlo.ttc}{\swjtu@mactrue}{}
+%%% windows
+\ifswjtu@mac\else
+  \IfFileExists{c:/Windows/Fonts/simsun.ttc}{\swjtu@windowstrue}{
+    \IfFileExists{c:/Windows/Fonts/simsun.ttf}{\swjtu@windowstrue}{}
+  }
+\fi
+%%% unix/Linux
+\ifswjtu@mac\else\ifswjtu@windows\else\swjtu@unixtrue\fi\fi
+%%% 不依赖系统字体，直接复制到`font`目录下
+%%% 需要复制3种字体：
+%%% SimSun.ttf, SimHei.ttf, Kaiti.ttf
+\def\swjtu@fontpath{font/}
+\IfFileExists{\swjtu@fontpath SimSun.ttf}{\swjtu@localfontstrue}{}
+
+\newcommand{\swjtu@load@local@cjk}{%
+  \typeout{SWJTU-Thesis: Loading local CJK fonts from \swjtu@fontpath}
+  \setCJKmainfont[Path=\swjtu@fontpath, ItalicFont=KaiTi.ttf, AutoFakeBold=3.5]{SimSun.ttf}
+  
+  \setCJKfamilyfont{zhsong}[Path=\swjtu@fontpath, AutoFakeBold=3.5]{SimSun.ttf}
+  \setCJKfamilyfont{zhhei} [Path=\swjtu@fontpath]{SimHei.ttf}
+  \setCJKfamilyfont{zhkai} [Path=\swjtu@fontpath]{KaiTi.ttf}
+}
+
+\newcommand{\swjtu@load@mac@cjk}{%
+  \typeout{SWJTU-Thesis: Loading macOS system fonts}
+  \setCJKmainfont[ItalicFont=Kaiti SC, AutoFakeBold=3.5]{Songti SC}
+  
+  \setCJKfamilyfont{zhsong}{Songti SC}
+  \setCJKfamilyfont{zhhei}[
+    UprightFont = * Medium,
+    BoldFont    = * Medium
+  ]{Heiti SC}
+  \setCJKfamilyfont{zhkai}{Kaiti SC}
+}
+
+\newcommand{\swjtu@load@windows@cjk}{%
+  \typeout{SWJTU-Thesis: Loading Windows system fonts}
+  \setCJKmainfont[AutoFakeBold=3, ItalicFont=KaiTi]{SimSun}
+  
+  \setCJKfamilyfont{zhsong}[AutoFakeBold=3]{SimSun}
+  \setCJKfamilyfont{zhhei}{SimHei}
+  \setCJKfamilyfont{zhkai}{KaiTi}
+}
+
+\newcommand{\swjtu@load@fandol@cjk}{%
+  \typeout{SWJTU-Thesis: Loading Fandol fonts (Fallback)}
+  \setCJKmainfont[
+    AutoFakeBold = 3,
+    ItalicFont   = FandolKai-Regular.otf
+  ]{FandolSong-Regular.otf}
+
+  \setCJKfamilyfont{zhsong}[AutoFakeBold=3]{FandolSong-Regular.otf}
+  \setCJKfamilyfont{zhhei} [AutoFakeBold=3]{FandolHei-Regular.otf}
+  \setCJKfamilyfont{zhkai} {FandolKai-Regular.otf}
+}
+
+\ifswjtu@local
+  \swjtu@load@local@cjk
+\else
+  \ifswjtu@mac
+    \swjtu@load@mac@cjk
+  \else
+    \ifswjtu@windows
+      \swjtu@load@windows@cjk
+    \else
+      \swjtu@load@fandol@cjk
+    \fi
+  \fi
+\fi
+
+\providecommand{\songti}{\CJKfamily{zhsong}}
+\renewcommand{\songti}{\CJKfamily{zhsong}}
+\providecommand{\heiti}{\CJKfamily{zhhei}}
+\renewcommand{\heiti}{\CJKfamily{zhhei}}
+\providecommand{\kaishu}{\CJKfamily{zhkai}}
+\renewcommand{\kaishu}{\CJKfamily{zhkai}}
+\providecommand{\fangsong}{\CJKfamily{zhfs}}
+\renewcommand{\fangsong}{\CJKfamily{zhfs}}
 
 %% 英文字体
 \IfFontExistsTF{Times New Roman}{
+  \typeout{SWJTU-Thesis: Loading Times New Roman}
   \setmainfont{Times New Roman}[
     Ligatures=TeX,
     BoldFont={Times New Roman Bold},
@@ -115,17 +195,51 @@
     BoldItalicFont={Times New Roman Bold Italic}
   ]
 }{
-  \setmainfont{Times}[Ligatures=TeX]
+  \typeout{SWJTU-Thesis: Times New Roman not found, using TeX Gyre Termes}
+  \setmainfont{texgyretermes}[
+    Extension      = .otf,
+    UprightFont    = *-regular,
+    BoldFont       = *-bold,
+    ItalicFont     = *-italic,
+    BoldItalicFont = *-bolditalic,
+    Ligatures      = TeX
+  ]
 }
 
 %% 衬线字体
-\setsansfont{Arial}[Ligatures=TeX]
+\IfFontExistsTF{Arial}{
+  \setsansfont{Arial}[
+    Ligatures=TeX,
+    BoldFont={Arial Bold},
+    ItalicFont={Arial Italic},
+    BoldItalicFont={Arial Bold Italic}
+  ]
+}{
+  \typeout{SWJTU-Thesis: Arial not found, using TeX Gyre Heros}
+  \setsansfont{texgyreheros}[
+    Extension      = .otf,
+    UprightFont    = *-regular,
+    BoldFont       = *-bold,
+    ItalicFont     = *-italic,
+    BoldItalicFont = *-bolditalic,
+    Ligatures      = TeX
+  ]
+}
 
 %% 等宽字体
 \IfFontExistsTF{Courier New}{
   \setmonofont{Courier New}[Scale=MatchLowercase]
 }{
-  \setmonofont{Menlo}[Scale=MatchLowercase]
+  \typeout{SWJTU-Thesis: Courier New not found, using TeX Gyre Cursor}
+  \setmonofont{texgyrecursor}[
+    Extension      = .otf,
+    UprightFont    = *-regular,
+    BoldFont       = *-bold,
+    ItalicFont     = *-italic,
+    BoldItalicFont = *-bolditalic,
+    Scale          = MatchLowercase,
+    Ligatures      = CommonOff
+  ]
 }
 
 %% 数学字体

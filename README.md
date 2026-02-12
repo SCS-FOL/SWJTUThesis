@@ -1,6 +1,6 @@
 # 西南交通大学研究生学位论文 LaTeX 模板 (SWJTUThesis)
 
-本项目是西南交通大学硕士/博士学位论文的 LaTeX 模板，严格遵循西南交通大学研究生院发布的 **[西南交通大学研究生学位论文撰写范式（2024年8月修订）](https://gsnews.swjtu.edu.cn/info/1967/25444.htm)** 进行开发。
+本项目是西南交通大学硕士/博士学位论文的 LaTeX 模板，严格遵循西南交通大学研究生院发布的 **[西南交通大学研究生学位论文撰写范式（2024年8月修订）](https://gsnews.swjtu.edu.cn/info/1967/25444.htm)（下面简称“《撰写范式》”）** 进行开发。
 
 ## 编译环境
 
@@ -10,9 +10,30 @@
 * **编译引擎**：必须使用 **XeLaTeX** 或 **LuaLaTeX**。
 * *注意：由于使用了 `fontspec` 和系统字体调用，不支持 pdfLaTeX。*
 
+已在 macOS 15、Windows 11、Debian 13、[TexPage](https://www.texpage.com/) 上编译成功（Tex Live 2025）。
+
 ## 字体
 
-暂时使用硬编码，请将系统字体（包括`SimSun.ttf`和`KaiTi.ttf`）复制到`font/`目录下。
+根据《撰写范式》，正文中文应使用**宋体**，标题使用**黑体**，西文使用 **Times New Roman**。
+
+为兼顾跨平台易用性与排版严谨性，本模板会优先检测项目根目录下的 `font/` 文件夹。**若使用移植系统字体的方案，需要复制`SimSun.ttf`、`SimHei.ttf`、`KaiTi.ttf`到`font/`目录下**；若无本地字体，则根据操作系统自动调用系统字体或开源替代字体。
+
+### 中文字体策略
+
+| 优先级 | 模式 / 系统 | 正文 (宋体) | 标题 (黑体) | 说明 |
+| :- | :- | :- | :- | :- |
+| **1 (最高)** | **本地模式**  | `font/SimSun.ttf`   | `font/SimHei.ttf`  | 与官方模板字体完全一致 |
+| 2 | **Windows** | SimSun | SimHei | 与官方模板字体完全一致 |
+| 3 | **macOS** | Songti SC | Heiti SC |
+| 4 | **Linux** | FandolSong | FandolHei |
+
+### 西文字体策略
+
+| 字体类型 | Windows / macOS | Linux |
+| :- | :- | :- |
+| **衬线 (Serif)** | Times New Roman | TeX Gyre Termes |
+| **无衬线 (Sans)** | Arial | TeX Gyre Heros |
+| **等宽 (Mono)** | Courier New | TeX Gyre Cursor |
 
 ## 编译指南
 
@@ -46,7 +67,7 @@ xelatex main
 
 ## 在线编译注意事项
 
-* **Overleaf**：由于免费版 [Overleaf](https://www.overleaf.com/project) 的编译超时限制，且本项目包含高清矢量图及复杂的字体配置，**直接在 Overleaf 上编译极大概率会报错（Timeout）**。
+* **Overleaf**：由于免费版 [Overleaf](https://www.overleaf.com/project) 的编译超时限制，且本项目包含高清矢量图及复杂的字体配置，**直接在 [Overleaf](https://www.overleaf.com/project) 上编译极大概率会报错（Timeout）**。
 
 * **推荐方案**：
 1. **本地编译**：在本地安装 TeX Live + VS Code (LaTeX Workshop) 获得最佳体验。
