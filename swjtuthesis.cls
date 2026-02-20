@@ -118,7 +118,7 @@
 %%% 需要复制3种字体：
 %%% SimSun.ttf, SimHei.ttf, Kaiti.ttf
 \def\swjtu@fontpath{font/}
-\IfFileExists{\swjtu@fontpath SimSun.ttf}{\swjtu@localfontstrue}{}
+\IfFileExists{\swjtu@fontpath SimSun.ttf}{\swjtu@localtrue}{}
 
 \newcommand{\swjtu@load@local@cjk}{%
   \typeout{SWJTU-Thesis: Loading local CJK fonts from \swjtu@fontpath}
